@@ -1,4 +1,7 @@
 package com.example.bookshelf.ui.screen
 
-class AppUiState {
+sealed interface AppUiState {
+    data object Success
+    data object Failure
+    data object  Loading
 }
