@@ -76,7 +76,7 @@ fun SuccessScreen  (
 //        items(items = books , key = {it -> it.kind} ) {
 //            Text(text = it.kind)
 //        }
-        item { Text(text = books.kind) }
+       // item { Text(text = books.kind) }
     }
 }
 
