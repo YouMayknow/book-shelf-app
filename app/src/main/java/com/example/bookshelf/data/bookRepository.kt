@@ -1,19 +1,24 @@
 package com.example.bookshelf.data
 
 import com.example.bookshelf.model.Book
+import com.example.bookshelf.model.BookImage
 import com.example.bookshelf.network.BookApi
 
-interface BookRepository : BookApi {
-    override suspend fun getBookList(query: String): List<Book>
+interface BookRepository {
+     suspend fun getBookList(): Book
+     suspend fun getBookImage(id : String) : List<BookImage>
 }
 
 
 class   NetworkBookRepository  (
    private  val retrofitService : BookApi ,
-    val query: String
 ) : BookRepository {
-        override suspend fun getBookList(query: String): List<Book> {
-       return retrofitService.getBookList(query = query)
+        override suspend fun getBookList():Book {
+       return retrofitService.getBookList()
+    }
+    //val bookImageId  =  getBookList().items.forEach()
+    override suspend fun getBookImage(id: String):List<BookImage> {
+        return retrofitService.getBookImage(id)
     }
 
 

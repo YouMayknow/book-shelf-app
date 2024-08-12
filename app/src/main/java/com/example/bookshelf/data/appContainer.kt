@@ -26,7 +26,6 @@ class DefaultAppContainer : AppContainer {
     override val bookRepository: BookRepository by lazy {
         NetworkBookRepository(
             retrofitService = retroFitService ,
-            query ="jazz history"
         )
     }
 }
