@@ -32,7 +32,7 @@ class AppViewmodel(
         viewModelScope.launch  {
             appUiState = AppUiState.Loading
             try {
-                AppUiState.Success(bookRepository.getBookList())
+        //        AppUiState.Success(bookRepository.getBookList())
             }
             catch (e : IOException){
                 AppUiState.Failure

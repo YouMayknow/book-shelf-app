@@ -93,7 +93,7 @@ fun FakeScreen() {
             // Fetch the data from the repository
             val bookList = DefaultAppContainer().bookRepository.getBookList()
             // Update the 'kind' value on the main thread
-            kind = bookList.items[1].volumeInfo.description ?: "null "
+            kind = bookList.items.toString()
 
         }
     }

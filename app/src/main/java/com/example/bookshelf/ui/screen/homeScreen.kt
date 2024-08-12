@@ -29,12 +29,12 @@ fun HomeScreen (
     modifier: Modifier = Modifier
 ) {
 
-    when(appUiState){
-       is  AppUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-       is  AppUiState.Success -> SuccessScreen(modifier = Modifier.fillMaxSize() , books = appUiState.books )
-       is  AppUiState.Failure -> ErrorScreen(onRetry =  onRetry , modifier = Modifier.fillMaxSize())
-
-    }
+//    when(appUiState){
+//       is  AppUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+//       is  AppUiState.Success -> SuccessScreen(modifier = Modifier.fillMaxSize() , books = appUiState.books )
+//       is  AppUiState.Failure -> ErrorScreen(onRetry =  onRetry , modifier = Modifier.fillMaxSize())
+//
+//    }
 }
 @Composable
 fun LoadingScreen (modifier: Modifier = Modifier) {
@@ -76,7 +76,7 @@ fun SuccessScreen  (
 //        items(items = books , key = {it -> it.kind} ) {
 //            Text(text = it.kind)
 //        }
-        item { Text(text = books.kind) }
+       // item { Text(text = books.kind) }
     }
 }
 
