@@ -28,11 +28,11 @@ class AppViewmodel(
         getBooksList()
     }
     fun getBooksList()  {
-        query = "jazz history"
+       // query = "jazz history"
         viewModelScope.launch  {
             appUiState = AppUiState.Loading
             try {
-                AppUiState.Success(bookRepository.getBookList(query = query))
+                AppUiState.Success(bookRepository.getBookList())
             }
             catch (e : IOException){
                 AppUiState.Failure

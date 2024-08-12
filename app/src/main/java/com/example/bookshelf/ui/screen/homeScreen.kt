@@ -2,7 +2,6 @@ package com.example.bookshelf.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,11 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +28,7 @@ fun HomeScreen (
     onRetry: () -> Unit ,
     modifier: Modifier = Modifier
 ) {
+
     when(appUiState){
        is  AppUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
        is  AppUiState.Success -> SuccessScreen(modifier = Modifier.fillMaxSize() , books = appUiState.books )
@@ -68,16 +66,17 @@ fun ErrorScreen (
 
 @Composable
 fun SuccessScreen  (
-    books : List<Book> ,
+    books : Book ,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
         modifier = modifier.fillMaxSize(),
         columns = GridCells.Adaptive(minSize = 200.dp)
     ) {
-        items(items = books , key = {it -> it.id} ) {
-            Text(text = it.id)
-        }
+//        items(items = books , key = {it -> it.kind} ) {
+//            Text(text = it.kind)
+//        }
+        item { Text(text = books.kind) }
     }
 }
 

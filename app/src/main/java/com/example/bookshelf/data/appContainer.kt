@@ -13,11 +13,12 @@ interface AppContainer {
 
 class DefaultAppContainer : AppContainer {
    private val baseUrl = "https://www.googleapis.com/books/v1/"
+    val json = Json { ignoreUnknownKeys = true } // Configure Kotlin Serialization
 
-   private val retrofit : Retrofit = Retrofit
+    private val retrofit : Retrofit = Retrofit
         .Builder()
         .baseUrl(baseUrl)
-        .addConverterFactory(Json.asConverterFactory("application/Json".toMediaType()))
+        .addConverterFactory(json.asConverterFactory("application/Json".toMediaType()))
         .build()
 
     private val retroFitService: BookApi by lazy {
@@ -26,7 +27,6 @@ class DefaultAppContainer : AppContainer {
     override val bookRepository: BookRepository by lazy {
         NetworkBookRepository(
             retrofitService = retroFitService ,
-            query ="jazz history"
         )
     }
 }

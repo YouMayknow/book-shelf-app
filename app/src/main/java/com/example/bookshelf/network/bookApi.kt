@@ -9,6 +9,6 @@ interface  BookApi {
     @GET("volumes")
    suspend  fun getBookList(
         @Query("q")
-        query: String
-    ) : List<Book>
+        query: String = "jazz history"
+    ) : Book
 }
