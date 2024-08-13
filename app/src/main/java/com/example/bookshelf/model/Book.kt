@@ -1,6 +1,5 @@
 package com.example.bookshelf.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,7 +9,7 @@ data class Book(
 
 @Serializable
 data class BookItem(
-    val selfLink  : String
+    val id : String
 )
 
 @Serializable

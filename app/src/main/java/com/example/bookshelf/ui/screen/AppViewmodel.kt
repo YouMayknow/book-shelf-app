@@ -1,6 +1,5 @@
 package com.example.bookshelf.ui.screen
 
-import android.view.View
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,18 +20,20 @@ class AppViewmodel(
 ) : ViewModel() {
     var appUiState : AppUiState by mutableStateOf(AppUiState.Loading)
         private  set
-    lateinit var query : String
-
-
+    //lateinit var imageId : List<String>
     init {
         getBooksList()
     }
     fun getBooksList()  {
-       // query = "jazz history"
         viewModelScope.launch  {
             appUiState = AppUiState.Loading
             try {
-        //        AppUiState.Success(bookRepository.getBookList())
+                //AppUiState.Success(bookRepository.getBookList())
+                bookRepository.getBookList()
+                 bookRepository.getBookList().items.forEach {
+                 //   bookRepository.getBookImage(it.id)
+                     AppUiState.Success(bookRepository.getBookImage(it.id))
+                }
             }
             catch (e : IOException){
                 AppUiState.Failure
