@@ -2,7 +2,6 @@ package com.example.bookshelf.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,22 +23,21 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bookshelf.R
-import com.example.bookshelf.model.Book
-import com.example.bookshelf.model.BookImage
 
 
 @Composable
 fun HomeScreen (
-    appUiState: AppUiState ,
-    onRetry: () -> Unit ,
+    imageList : List<String>,
+    onRetry: () -> Unit , 
     modifier: Modifier = Modifier
 ) {
-    when(appUiState){
-       is  AppUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-       is  AppUiState.Success -> SuccessScreen(modifier = Modifier.fillMaxSize() , bookImage = appUiState.bookId )
-       is  AppUiState.Failure -> ErrorScreen(onRetry =  onRetry , modifier = Modifier.fillMaxSize())
-
-    }
+//    when(appUiState){
+//       is  AppUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+//       is  AppUiState.Success -> SuccessScreen(modifier = Modifier.fillMaxSize() , bookImage = appUiState.bookId )
+//       is  AppUiState.Failure -> ErrorScreen(onRetry =  onRetry , modifier = Modifier.fillMaxSize())
+//
+//    }
+    SuccessScreen(bookImages = imageList, modifier = modifier )
 }
 @Composable
 fun LoadingScreen (modifier: Modifier = Modifier) {
@@ -72,22 +69,42 @@ fun ErrorScreen (
 
 @Composable
 fun SuccessScreen  (
-    bookImage  : List<BookImage>  ,
+    bookImages  : List<String>  ,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
         modifier = modifier.fillMaxSize(),
         columns = GridCells.Adaptive(minSize = 200.dp)
     ) {
-        items(items = bookImage , key = {it -> it.thumbnail} ) {
-            BookDisplay(it.thumbnail)
-         }
+        items(items = bookImages , key = { it} ) {
+           // BookDisplay(it)
+
+            Card (
+                modifier = modifier
+                    .padding(4.dp)
+                    .aspectRatio(0.67f)  ,
+                shape = RectangleShape ,
+
+                ) {
+                Column {
+                    //BookImage(bookImage = bookImage)
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(it.replace("http" , "https"))
+                            .crossfade(true)
+                            .build() ,
+                        contentDescription =  null,
+                        modifier = modifier
+                    )
+                }
+            }
+        }
     }
 }
 
 @Composable
 fun BookDisplay (
-    bookImages : String ,
+    bookImage : String ,
     modifier: Modifier = Modifier
 ) {
     Card (
@@ -98,13 +115,14 @@ fun BookDisplay (
 
     ) {
         Column {
-           com.example.bookshelf.ui.screen.BookImage(bookImages = bookImages)
-            Text(
-                text = "Book name " ,
-                modifier = Modifier.padding(
-                    vertical = 8.dp,
-                    horizontal = 4.dp
-                )
+           //BookImage(bookImage = bookImage)
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(bookImage.replace("http" , "https"))
+                    .crossfade(true)
+                    .build() ,
+                contentDescription =  null,
+                modifier = modifier
             )
         }
     }
@@ -113,12 +131,13 @@ fun BookDisplay (
 @Composable
 fun BookImage (
     modifier: Modifier = Modifier,
-    bookImages : String
+    bookImage : String
 ){ AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(bookImages)
+            .data(bookImage.replace("http" , "https"))
             .crossfade(true)
             .build() ,
-        contentDescription =  null
+        contentDescription =  null,
+    modifier = modifier
     )
 }

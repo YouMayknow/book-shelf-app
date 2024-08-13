@@ -1,7 +1,9 @@
 package com.example.bookshelf.ui.screen
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +13,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.bookshelf.AppApplication
 import com.example.bookshelf.data.BookRepository
+import com.example.bookshelf.model.Thumbnails
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -18,30 +21,34 @@ import java.io.IOException
 class AppViewmodel(
     val bookRepository: BookRepository
 ) : ViewModel() {
-    var appUiState : AppUiState by mutableStateOf(AppUiState.Loading)
+   var exceptions  by mutableStateOf("")
+  //  var appUiState : AppUiState by mutableStateOf(AppUiState.Loading)
         private  set
-    //lateinit var imageId : List<String>
+    var imageList  =   mutableStateListOf<String>()
+
+
     init {
-        getBooksList()
+        searchFunction(searchTerm =  "jazz history")
     }
-    fun getBooksList()  {
+    fun searchFunction(
+        searchTerm : String
+    ){
         viewModelScope.launch  {
-            appUiState = AppUiState.Loading
+          //  appUiState = AppUiState.Loading
             try {
-                //AppUiState.Success(bookRepository.getBookList())
-                bookRepository.getBookList()
-                 bookRepository.getBookList().items.forEach {
-                 //   bookRepository.getBookImage(it.id)
-                     AppUiState.Success(bookRepository.getBookImage(it.id))
+              val imageIdList =   bookRepository.getBookList(searchTerm).items
+                imageIdList.forEach { imageId ->
+                  val thumbnail =   bookRepository.getBookImage(imageId.id).volumeInfo.imageLinks.thumbnail
+                    imageList.add(thumbnail)
                 }
-            }
-            catch (e : IOException){
-                AppUiState.Failure
-            }
-            catch (e : HttpException){
-                AppUiState.Failure
+            }  catch (e : IOException){
+                exceptions = e.toString()
+            }  catch (e : HttpException){
+                exceptions = e.toString()
             }
         }
+
+   // appUiState = AppUiState.Success(bookImages = imageList)
     }
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {

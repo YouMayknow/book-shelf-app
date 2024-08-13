@@ -14,5 +14,13 @@ data class BookItem(
 
 @Serializable
 data class BookImage(
+    val volumeInfo : BookInfo
+)
+@Serializable
+data class BookInfo(
+    val imageLinks : Thumbnails
+)
+@Serializable
+data class Thumbnails(
     val thumbnail : String
 )
