@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.bookshelf.ui.AppScreen
+import com.example.bookshelf.ui.screen.HomeScreen
 import com.example.bookshelf.ui.screen.heroScreen
 import com.example.bookshelf.ui.theme.BookShelfTheme
 
@@ -14,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BookShelfTheme {
-                heroScreen()
+                AppScreen()
             }
         }
     }

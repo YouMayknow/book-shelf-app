@@ -1,6 +1,7 @@
 package com.example.bookshelf.ui.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
@@ -76,28 +78,8 @@ fun SuccessScreen  (
         modifier = modifier.fillMaxSize(),
         columns = GridCells.Adaptive(minSize = 200.dp)
     ) {
-        items(items = bookImages , key = { it} ) {
-           // BookDisplay(it)
-
-            Card (
-                modifier = modifier
-                    .padding(4.dp)
-                    .aspectRatio(0.67f)  ,
-                shape = RectangleShape ,
-
-                ) {
-                Column {
-                    //BookImage(bookImage = bookImage)
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(it.replace("http" , "https"))
-                            .crossfade(true)
-                            .build() ,
-                        contentDescription =  null,
-                        modifier = modifier
-                    )
-                }
-            }
+        items(items = bookImages , key = { it} ) {bookImage ->
+            BookDisplay(bookImage)
         }
     }
 }
@@ -115,15 +97,9 @@ fun BookDisplay (
 
     ) {
         Column {
-           //BookImage(bookImage = bookImage)
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(bookImage.replace("http" , "https"))
-                    .crossfade(true)
-                    .build() ,
-                contentDescription =  null,
-                modifier = modifier
-            )
+           // BookImage(bookImage = bookImage)
+            Text(text = bookImage , maxLines = 1 , modifier = Modifier.horizontalScroll(
+                rememberScrollState()))
         }
     }
 }

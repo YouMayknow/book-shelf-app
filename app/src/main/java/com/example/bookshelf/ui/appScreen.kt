@@ -37,6 +37,9 @@ fun AppScreen (
 
     Scaffold(
     ) {
+        HomeScreen(imageList = imageUrls,  onRetry = { /*TODO*/ }, modifier = Modifier.padding(it))
+        /*
+
         var kind by remember { mutableStateOf("Loading...") }
         var url by remember { mutableStateOf("Trying...") }
         var  urls =  remember { mutableStateListOf<String>() }
@@ -64,14 +67,15 @@ fun AppScreen (
             }
         }
 
-//        viewmodel.searchFunction("jazz history")
-      //  val imagelist  = remember { viewmodel.imageList }
-//        HomeScreen(
-//            imageList = urls    ,
-//            onRetry = { } , // viewmodel::appUiState
-//            modifier = Modifier.padding(it)
-//        )
+      viewmodel.searchFunction("jazz history")
+      val imagelist  = remember { viewmodel.imageList }
+      HomeScreen(
+          imageList = urls    ,
+          onRetry = { } , // viewmodel::appUiState
+          modifier = Modifier.padding(it)
+      )
         SuccessScreen(bookImages = urls , modifier =  Modifier.padding(it))
+    }  */
     }
 }
 
@@ -107,3 +111,17 @@ fun TopAppBar (
     )
 
 }
+
+
+val imageUrls = listOf(
+    "https://images.unsplash.com/photo-1593642634367-d91a135587b5",
+    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+    "https://images.unsplash.com/photo-1606787366850-de6330128bfc",
+    "https://images.unsplash.com/photo-1494173853739-c21f58b16055",
+    "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    "https://images.unsplash.com/photo-1581092330270-f92eaaa5f4f9",
+    "https://images.unsplash.com/photo-1581276879432-fc0f5d9d0d34",
+    "https://images.unsplash.com/photo-1542281286-9e0a16bb7366",
+    "https://images.unsplash.com/photo-1509223197845-458d87318791",
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+)

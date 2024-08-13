@@ -1,5 +1,6 @@
 package com.example.bookshelf.ui.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +31,7 @@ class AppViewmodel(
     init {
         searchFunction(searchTerm =  "jazz history")
     }
+    @SuppressLint("SuspiciousIndentation")
     fun searchFunction(
         searchTerm : String
     ){

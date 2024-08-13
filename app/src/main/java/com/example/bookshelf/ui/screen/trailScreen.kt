@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -66,11 +67,8 @@ fun heroScreen () {
         modifier = Modifier.fillMaxSize(),
         columns = GridCells.Adaptive(minSize = 200.dp)
     ) {
-
-
         items(items = urls ,  ) {
             // BookDisplay(it)
-
             Card (
                 modifier = Modifier
                     .padding(4.dp)
