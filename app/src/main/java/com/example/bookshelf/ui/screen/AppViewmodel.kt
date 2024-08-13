@@ -27,27 +27,27 @@ class AppViewmodel(
     fun getBooksList()  {
         viewModelScope.launch  {
             appUiState = AppUiState.Loading
-            try {
-                //AppUiState.Success(bookRepository.getBookList())
-                bookRepository.getBookList()
-                 bookRepository.getBookList().items.forEach {
-                 //   bookRepository.getBookImage(it.id)
-                     AppUiState.Success(bookRepository.getBookImage(it.id))
-                }
-            }
-            catch (e : IOException){
-                AppUiState.Failure
-            }
-            catch (e : HttpException){
-                AppUiState.Failure
-            }
+//            try {
+//                //AppUiState.Success(bookRepository.getBookList())
+//                bookRepository.getBookList()
+//                 bookRepository.getBookList().items.forEach {
+//                 //   bookRepository.getBookImage(it.id)
+////                     AppUiState.Success(bookRepository.getBookImage(it.id))
+//                }
+//            }
+//            catch (e : IOException){
+//                AppUiState.Failure
+//            }
+//            catch (e : HttpException){
+//                AppUiState.Failure
+//            }
         }
     }
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as AppApplication)
-                val bookRepository = application.appContianer.bookRepository
+                val bookRepository = application.appContainer.bookRepository
                 AppViewmodel(bookRepository = bookRepository)
             }
         }

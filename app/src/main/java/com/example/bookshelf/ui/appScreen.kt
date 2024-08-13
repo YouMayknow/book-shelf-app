@@ -22,11 +22,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.bookshelf.data.DefaultAppContainer
 import com.example.bookshelf.ui.screen.AppViewmodel
 import com.example.bookshelf.ui.screen.HomeScreen
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
 @Composable
 fun AppScreen (
@@ -84,23 +89,42 @@ fun TopAppBar (
 fun FakeScreen() {
     // State to hold the 'kind' value
     var kind by remember { mutableStateOf("Loading...") }
+    var url by remember { mutableStateOf("Trying...") }
+
     // Use a coroutine scope to run the network request
     val coroutineScope = rememberCoroutineScope()
 
     // Use LaunchedEffect to perform side-effects
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            // Fetch the data from the repository
-            val bookList = DefaultAppContainer().bookRepository.getBookList()
-            // Update the 'kind' value on the main thread
-            kind = bookList.items.toString()
+            try {
+          val   url1 = DefaultAppContainer().bookRepository.getBookImage("AycJAQAAMAAJ")
+            url = url1.volumeInfo.imageLinks.thumbnail
+                // Fetch the data from the repository
+               // val bookList = DefaultAppContainer().bookRepository.getBookList()
+                // Update the 'kind' value on the main thread
+             //   kind = bookList.items[1].id
+            } catch (e : IOException){
+                url  = e.toString()            }
+            catch (e : HttpException){
+                url   = e.toString()
+            }
+
+
 
         }
     }
-
     // Display the 'kind' value
     Column(modifier = Modifier.fillMaxSize()) {
-        Text(text = kind)
-
+        Text(text = url.replace("http" , "https"))
+        AsyncImage(
+               model = ImageRequest.Builder(LocalContext.current)
+                   .data(url.replace("http","https"))
+                   .crossfade(true)
+                   .build() ,
+               contentDescription =  null
+        )
     }
 }
+
+

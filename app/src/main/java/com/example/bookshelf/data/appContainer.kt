@@ -1,6 +1,5 @@
 package com.example.bookshelf.data
 
-import com.example.bookshelf.model.Book
 import com.example.bookshelf.network.BookApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
