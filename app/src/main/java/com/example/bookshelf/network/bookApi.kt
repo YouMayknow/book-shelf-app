@@ -8,12 +8,12 @@ import retrofit2.http.Query
 
 
 interface  BookApi {
-//    @GET("volumes")
-//   suspend  fun getBookList(
-//        @Query("q")
-//        query: String = "jazz history"
-//    ) : Book
-//
+    @GET("volumes")
+   suspend  fun getBookList(
+        @Query("q")
+        query: String = "india past"
+    ) : Book
+
 
    @GET("volumes/{id}")
    suspend fun getBookImage(
